@@ -141,7 +141,9 @@ class GoSheetEditor:
         print(f"updating an entry on '{worksheet.title}'")
         nowT = get_current_datetime()
         item_id = new_entry['id']
-        
+        if item_id <= 1:
+            return f"failee to delete. Item ID must be greater than 1."
+            
         # 要新增的單行資料
         # 日期, 時間, 名稱, 個數, 小計價格, 狀態, 備註
         # 寫入多個儲存格 (單行)
@@ -172,6 +174,8 @@ class GoSheetEditor:
         print(f"deleting a entry on '{worksheet.title}'")
         nowT = get_current_datetime()
         item_id = new_entry['id']
+        if item_id <= 1:
+            return f"failee to delete. Item ID must be greater than 1."
         
         # 要新增的單行資料
         # 日期A, 時間B, 名稱C, 個數D, 小計價格E, 狀態F, 備註G
@@ -188,7 +192,8 @@ class GoSheetEditor:
     
         print(f"reading a entry on '{worksheet.title}'")
         item_id = new_entry['id']
-    
+        if item_id <= 1:
+            return f"failee to delete. Item ID must be greater than 1."
         # all_sheet_values = worksheet.get_all_values()
         # print("\n--- All values in the sheet (list of lists) ---")
         # for row in all_sheet_values:
@@ -251,7 +256,7 @@ def account_book_mcp_call(method:str, item_id:int, item_name:str, item_count:int
                       - If **'read'**: Use this to retrieve details of an existing ledger entry. You **must provide the specific item_id** of the entry you want to read. When reading, `item_name`, `item_count`, and `total_price` are ignored.
                       - If **'update'**: Use this to modify an existing ledger entry. You **must provide the specific item_id** of the entry to be updated.
                       - If **'delete'**: Use this to remove an existing ledger entry. You **must provide the specific item_id** of the entry to be deleted. When deleting, `item_name`, `item_count`, and `total_price` are ignored.
-        item_id (int): The unique identifier for the ledger item.
+        item_id (int): The unique identifier for the ledger item and item_id must be greater than 1.
                        - For **'create'** operations, set this to **0**. The system will assign a new ID.
                        - For **'read'**, **'update'**, or **'delete'** operations, this must be the exact ID of the existing item you wish to interact with.
         item_name (str): The name or description of the ledger item.
