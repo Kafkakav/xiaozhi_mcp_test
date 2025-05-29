@@ -5,7 +5,8 @@ To get more information [here](https://github.com/78/mcp-calculator/tree/main)
 
 ### Features 
 MCP tools:
-- added to get the timetable of Taiwan high spped rail
+- MCP tool to get the timetable of Taiwan high spped rail (查詢高鐡時刻表)
+- MCP tool to manage ledger entries (利用google sheet 簡單記帳)
 
 ### Quick Start
 
