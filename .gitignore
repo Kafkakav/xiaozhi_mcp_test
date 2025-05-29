@@ -5,8 +5,11 @@ __pycache__/
 
 # C extensions
 *.so
+*.json
+*.bak
 
 # Distribution / packaging
+authcreds/
 .Python
 build/
 develop-eggs/

@@ -24,3 +24,28 @@ export MCP_ENDPOINT=<your_mcp_endpoint>
 ```bash
 python mcp_pipe.py mcp_script.py
 ```
+
+### go_config.json for go_sheet.py
+``` json
+{
+   "CredentialFile": "./path_of/goapi-credentials.json",
+   "SPREADSHEET_ID": "google_sheet_id-xxxx"
+}
+```
+
+### 臺灣證券交易所 OpenAPI
+``` text
+https://openapi.twse.com.tw
+https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL
+
+```
+
+### 其它Open API 
+``` text
+# 智慧城鄉 OpenAPI
+https://www.openapi.org.tw/
+
+# 聯合信用卡處理中心-開放資料平臺 Open API
+https://bas.nccc.com.tw/nccc-nop/swagger-ui.html
+
+```

@@ -5,6 +5,7 @@ import sys
 import logging
 #from ast import literal_eval
 from taiwan_hsr import tawinhsr_mcp_call
+from go_sheet import account_book_mcp_call
 
 logger = logging.getLogger('MyFirstMCP')
 logger.setLevel(logging.INFO)
@@ -37,7 +38,7 @@ def safe_math_eval(expr: str):
     
     return eval(expr, {"__builtins__": None}, allowed_names)
     
-# Add an addition tool
+# an calculator
 @mcp.tool()
 def calculator(python_expression: str) -> dict:
     """For mathamatical calculation, always use this tool to calculate the result of a python expression. `math` and `random` are available."""
@@ -51,7 +52,7 @@ def calculator(python_expression: str) -> dict:
         logger.error(f"Calculation error: {e}")
         return {"success": False, "error": str(e)}
 
-# Add taiwan hgig speed railway timetable 
+# taiwan hgig speed railway timetable 
 @mcp.tool()
 async def taiwan_high_speed_rail_timetable(start_station: str, destination_station: str, query_date: str, query_time: str) -> dict:
     """
@@ -78,6 +79,42 @@ async def taiwan_high_speed_rail_timetable(start_station: str, destination_stati
         query_date,
         query_time
     )
+    
+    logger.info(f"twhsr timetable: result: {result}")
+    return {"success": True, "result": result}
+
+# an account book (帳本)
+@mcp.tool()
+def account_book(method:str, item_id:int, item_name:str, item_count:int, total_price:int):
+    """
+    This tool is used to manage ledger(帳本) entries, supporting standard Create, Read, Update, and Delete (CRUD) operations.
+
+    Args:
+        method (str): The operation to perform.
+                      - If **'create'**: Use this to add a new ledger entry. For new entries, **item_id must be 0**.
+                      - If **'read'**: Use this to retrieve details of an existing ledger entry. You **must provide the specific item_id** of the entry you want to read. When reading, `item_name`, `item_count`, and `total_price` are ignored.
+                      - If **'update'**: Use this to modify an existing ledger entry. You **must provide the specific item_id** of the entry to be updated.
+                      - If **'delete'**: Use this to remove an existing ledger entry. You **must provide the specific item_id** of the entry to be deleted. When deleting, `item_name`, `item_count`, and `total_price` are ignored.
+        item_id (int): The unique identifier for the ledger item.
+                       - For **'create'** operations, set this to **0**. The system will assign a new ID.
+                       - For **'read'**, **'update'**, or **'delete'** operations, this must be the exact ID of the existing item you wish to interact with.
+        item_name (str): The name or description of the ledger item.
+                         (Required for 'create' and 'update' operations, ignored for 'read' and 'delete').
+        item_count (int): The quantity of the item.
+                          (Required for 'create' and 'update' operations, ignored for 'read' and 'delete').
+        total_price (int): The total price of the item(s).
+                           (Required for 'create' and 'update' operations, ignored for 'read' and 'delete').
+
+    Returns:
+        str: A confirmation message indicating the success of the operation.
+             For 'create' operations, this message will include the newly assigned item ID,
+             which can be used for future 'read', 'update', or 'delete' actions.
+             For 'read', 'update', or 'delete' operations, the message will confirm the action
+             and might include relevant details about the item or the outcome.
+    """
+
+    result = account_book_mcp_call(
+        method, item_id, item_name, item_count, total_price)
     
     logger.info(f"twhsr timetable: result: {result}")
     return {"success": True, "result": result}
