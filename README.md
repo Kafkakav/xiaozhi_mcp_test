@@ -33,19 +33,16 @@ python mcp_pipe.py mcp_script.py
 }
 ```
 
-### 臺灣證券交易所 OpenAPI
+### TBD
+
 ``` text
+### 臺灣證券交易所 OpenAPI
 https://openapi.twse.com.tw
 https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL
 
-```
-
-### 其它Open API 
-``` text
 # 智慧城鄉 OpenAPI
 https://www.openapi.org.tw/
 
 # 聯合信用卡處理中心-開放資料平臺 Open API
 https://bas.nccc.com.tw/nccc-nop/swagger-ui.html
-
 ```
