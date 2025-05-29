@@ -80,26 +80,27 @@ python scripts/release.py
 4. using esp-launchpad webiste (using browser chrome or edge) 
 [esp-launchpad](https://espressif.github.io/esp-launchpad/)
 5. In esp-launchpad webiste -> DIY
-  a. Connect to COM port of ESP32 
-  b. Flash Address: 0x0
-  c. select image file: merged-binary.bin
-  d. Program and wait for it to finish
+- Connect to COM port of ESP32 
+- Flash Address: 0x0
+- select image file: merged-binary.bin
+- Program and wait for it to finish
 6. reboot/reset esp32 
 
 
 ## How To
 
-### 支援正體中文字型(支援部分日文) 
+### 支援正體中文字型(部分日文) 
+專案用lvgl點陣字型庫, 可以透過[lv_font_conv](https://github.com/lvgl/lv_font_conv)轉換ttf字型
+原始轉換內容只包含GB2312.TXT字集, 如果要支援正體中文必須手動修改轉換字集範圍
+**注意**字集太多會佔用太多空間,會造成ESP32記憶體的負擔,也可能無燒錄或功能異常
 ``` text
 # source xiaozhi-esp32\managed_components\78__xiaozhi-fonts
-專案是用lvgl點陣字型庫, 需要透過[lv_font_conv](https://github.com/lvgl/lv_font_conv)轉換ttf字型
-轉換的過程只包含GB2312.TXT字集, 如果要支援正體中文必須手動修改轉換範圍
-**注意**字集太多會造成ESP32記憶體的負擔, 可能無燒錄或功能異常
+
 原來GB2312字集: font_puhui_14_1.c size 1.8 8MB (object code: 3xxKB)
 修改後GBK字集: font_puhui_14_1.c size 5.28 MB (object code: 821KB)
-
+修改 font.py, 支援GBK uncode 字集範圍 0x4E00 - 0x9FFF
 ```
-修改 font.py, 支援GBK uncode 字集 0x4E00 - 0x9FFF
+font.py
 ``` python
 def load_symbols(type):
     symbols = ["•", "·", "÷", "×", "©", "¥", "®"]
